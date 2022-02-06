@@ -10,15 +10,18 @@ async function login() {
    try {
       user = await Moralis.authenticate({ signingMessage: "Hello World!" })
       console.log(user)
+      UnityInstance.SendMessage('Polygon', 'true')
       console.log(user.get('ethAddress'))
    } catch(error) {
      console.log(error)
    }
   }
+  
 }
 
 async function logOut() {
   await Moralis.User.logOut();
+  UnityInstance.SendMessage('Polygon', 'false')
   console.log("logged out");
 }
 
