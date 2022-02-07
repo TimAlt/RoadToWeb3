@@ -1154,26 +1154,26 @@ var tempDouble;
 var tempI64;
 
 var ASM_CONSTS = {
- 3836708: function() {
+ 3840884: function() {
   Module["emscripten_get_now_backup"] = performance.now;
  },
- 3836763: function($0) {
+ 3840939: function($0) {
   performance.now = function() {
    return $0;
   };
  },
- 3836811: function($0) {
+ 3840987: function($0) {
   performance.now = function() {
    return $0;
   };
  },
- 3836859: function() {
+ 3841035: function() {
   performance.now = Module["emscripten_get_now_backup"];
  },
- 3836914: function() {
+ 3841090: function() {
   return Module.webglContextAttributes.premultipliedAlpha;
  },
- 3836975: function() {
+ 3841151: function() {
   return Module.webglContextAttributes.preserveDrawingBuffer;
  }
 };
@@ -2459,6 +2459,14 @@ function _JS_SystemInfo_IsMobile() {
 
 function _JS_UnityEngineShouldQuit() {
  return !!Module.shouldQuit;
+}
+
+function _MLogin() {
+ login();
+}
+
+function _MLogout() {
+ logOut();
 }
 
 var ExceptionInfoAttrs = {
@@ -12738,6 +12746,8 @@ var asmLibraryArg = {
  "JS_SystemInfo_HasWebGL": _JS_SystemInfo_HasWebGL,
  "JS_SystemInfo_IsMobile": _JS_SystemInfo_IsMobile,
  "JS_UnityEngineShouldQuit": _JS_UnityEngineShouldQuit,
+ "MLogin": _MLogin,
+ "MLogout": _MLogout,
  "__cxa_allocate_exception": ___cxa_allocate_exception,
  "__cxa_atexit": ___cxa_atexit,
  "__cxa_begin_catch": ___cxa_begin_catch,

@@ -7,6 +7,18 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private float hInput;
     private float vInput;
+    public SpriteRenderer sr;
+    public Sprite[] sprites;
+    public Transform targetSystem;
+
+    public Transform leftGun;
+    public Transform rightGun;
+
+    public GameObject bullet;
+    private const float fireRate = .06f;
+    private float timeSinceLastBullet = 0f;
+
+    private bool leftFire = true;
 
     [SerializeField]
     private float moveForce;
@@ -16,6 +28,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        World.targetSystem = targetSystem;
+        sr.sprite = sprites[World.playerSelection];
     }
 
     // Update is called once per frame
@@ -23,6 +37,13 @@ public class Player : MonoBehaviour
     {
         hInput = Input.GetAxisRaw("Horizontal");
         vInput = Input.GetAxisRaw("Vertical");
+
+        timeSinceLastBullet += Time.deltaTime;
+        if (Input.GetAxisRaw("Fire1") >= 1 && timeSinceLastBullet >= fireRate)
+        {
+            timeSinceLastBullet = 0;
+            Fire();
+        }
     }
 
     private void FixedUpdate()
@@ -36,5 +57,28 @@ public class Player : MonoBehaviour
 
         transform.up = direction;
 
+    }
+
+    void Fire()
+    {
+        if (leftFire)
+        {
+            leftFire = false;
+            Instantiate(bullet, leftGun.position, transform.rotation);
+        }
+        else
+        {
+            leftFire = true;
+            Instantiate(bullet, rightGun.position, transform.rotation);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("EnemyBullet"))
+        {
+            Destroy(gameObject);
+
+        }
     }
 }

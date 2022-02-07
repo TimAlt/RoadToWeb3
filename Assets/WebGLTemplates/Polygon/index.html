@@ -110,6 +110,7 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
+          window.unityInstance = unityInstance;
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
           };
@@ -121,45 +122,8 @@
     </script>
 <button id="btn-login">Moralis Metamask Login</button>
 <button id="btn-logout">Logout</button>
-<script>/** Connect to Moralis server */
-  const serverUrl = "https://2bc5wczuwqih.usemoralis.com:2053/server";
-  const appId = "kqnmg53UID9cIZxlq7tClXdAby11GmLG9K3txnGb";
-  Moralis.start({ serverUrl, appId });
-  
-  /** Add from here down */
-  async function login() {
-    let user = Moralis.User.current();
-    if (!user) {
-     try {
-        user = await Moralis.authenticate({ signingMessage: "Hello World!" })
-        console.log(user)
-        UnityInstance.SendMessage('Polygon', 'true')
-        console.log(user.get('ethAddress'))
-     } catch(error) {
-       console.log(error)
-     }
-    }
-    
-  }
-  
-  async function logOut() {
-    await Moralis.User.logOut();
-    UnityInstance.SendMessage('Polygon', 'false')
-    console.log("logged out");
-  }
-  
-  document.getElementById("btn-login").onclick = login;
-  document.getElementById("btn-logout").onclick = logOut;
-  
-  /** Useful Resources  */
-  
-  // https://docs.moralis.io/moralis-server/users/crypto-login
-  // https://docs.moralis.io/moralis-server/getting-started/quick-start#user
-  // https://docs.moralis.io/moralis-server/users/crypto-login#metamask
-  
-  /** Moralis Forum */
-  
-  // https://forum.moralis.io/</script>
+<script type="text/javascript" src="./main.js"></script>
+
 
   </body>
 </html>
